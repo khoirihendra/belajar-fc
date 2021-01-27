@@ -1,12 +1,12 @@
 package com.hindra.fc.controller.mobile;
 
-import java.net.http.HttpHeaders;
+import com.hindra.fc.model.Login;
+import com.hindra.fc.service.mobile.UserServiceMobile;
 
-import com.hindra.fc.model.Admin;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -17,12 +17,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/mobile")
 public class UserMobileController {
+
+    @Autowired
+    private UserServiceMobile userService;
     
+    @PostMapping(path = "/register", produces = "application/json")
+    public ResponseEntity<?> register(@RequestBody Login login) {
+        
+        return userService.register(login);
+    }
+
     @PostMapping(path = "/login", produces = "application/json")
-    private ResponseEntity<String> login (
-        @RequestHeader HttpHeaders header,
-        @RequestBody(required = true) Admin admin
-    ) {
-        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body("");
+    public ResponseEntity<?> login(@RequestBody Login login) {
+        
+        return userService.login(login);
+    }
+    
+    @GetMapping(path = "/profile", produces = "application/json")
+    public ResponseEntity<?> getProfile(@RequestHeader HttpHeaders headers) {
+
+        String token = headers.getFirst(HttpHeaders.AUTHORIZATION).substring(7);
+
+        return userService.getProfile(token);
     }
 }

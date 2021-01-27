@@ -1,5 +1,7 @@
 package com.hindra.fc.service.web;
 
-public class TransactionService {
-    
+import org.springframework.http.ResponseEntity;
+
+public interface TransactionService {
+    ResponseEntity<?> listTransactions();
 }

@@ -1,13 +1,11 @@
 package com.hindra.fc.controller.web;
 
-import java.util.Map;
-
-import com.hindra.fc.model.Admin;
 import com.hindra.fc.model.Login;
 import com.hindra.fc.service.web.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
+@CrossOrigin
 @RequestMapping("/web")
 public class UserController {
 
@@ -24,20 +23,26 @@ public class UserController {
     private UserService userService;
 
     @PostMapping(path = "/register-admin", produces = "application/json")
-    public ResponseEntity<Map<String, String>> registerAdmin(@RequestBody Login login) {
+    public ResponseEntity<?> registerAdmin(@RequestBody Login login) {
         
         return userService.register(login);
     }
 
     @PostMapping(path = "/login-admin", produces = "application/json")
-    public ResponseEntity<Map<String, ?>> loginAdmin(@RequestBody Login login) {
+    public ResponseEntity<?> loginAdmin(@RequestBody Login login) {
         
         return userService.login(login);
     }
     
     @GetMapping(path = "/profile/{userid}", produces = "application/json")
-    public ResponseEntity<Admin> getProfile(@PathVariable(required = true) String userid) {
+    public ResponseEntity<?> getProfile(@PathVariable(required = true) String userid) {
         
         return userService.getProfile(userid);
+    }
+
+    @GetMapping(path = "/users", produces = "application/json")
+    public ResponseEntity<?> listMobileUsers() {
+        
+        return userService.listMobileUsers();
     }
 }

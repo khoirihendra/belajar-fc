@@ -4,8 +4,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -17,9 +15,11 @@ import lombok.Data;
 public class Payment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "payment_id")
     private String paymentid;
+
+    @Column(name = "user_id", nullable = false)
+    private String userid;
 
     @Column(name = "fee", nullable = false)
     private String fee;

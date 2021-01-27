@@ -1,37 +1,30 @@
-package com.hindra.fc.service.web.implementation;
+package com.hindra.fc.service.mobile.implementation;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.hindra.fc.dao.AdminDao;
 import com.hindra.fc.dao.LoginDao;
 import com.hindra.fc.dao.UserDao;
-import com.hindra.fc.model.Admin;
 import com.hindra.fc.model.Login;
 import com.hindra.fc.model.User;
-import com.hindra.fc.service.web.UserService;
+import com.hindra.fc.service.mobile.UserServiceMobile;
 import com.hindra.fc.util.JwtTokenUtil;
 import com.hindra.fc.util.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.http.MediaType;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceMobileImpl implements UserServiceMobile {
 
     @Autowired
     private LoginDao loginDao;
-
-    @Autowired
-    private AdminDao adminDao;
 
     @Autowired
     private UserDao userDao;
@@ -63,12 +56,12 @@ public class UserServiceImpl implements UserService {
             loginDao.save(login);
 
             // add admin detail
-            Admin admin = new Admin();
-            admin.setUserid(uuid);
-            admin.setFullname(login.getFullname());
-            admin.setCreatedat(new Date());
-            admin.setCreatedby(uuid);
-            adminDao.save(admin);
+            User user = new User();
+            user.setUserid(uuid);
+            user.setFullname(login.getFullname());
+            user.setCreatedat(new Date());
+            user.setCreatedby(uuid);
+            userDao.save(user);
 
             data.put("token", token);
 
@@ -131,15 +124,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> getProfile(String userid) {
+    public ResponseEntity<?> getProfile(String token) {
 
         Boolean status = false;
         String msg = "";
-        Admin data = new Admin();
+        User data = new User();
 
         try {
-
-            data = adminDao.findByUserid(userid);
+            String userid = jwt.getUserIdFromToken(token);
+            data = userDao.findByUserid(userid);
 
             if(data == null) {
                 throw new Exception("User doesn't exist.");
@@ -152,32 +145,9 @@ public class UserServiceImpl implements UserService {
             msg = e.getMessage();
         }
         
-        Response<Admin> res = new Response<Admin>(status, msg, data);
+        Response<User> res = new Response<User>(status, msg, data);
 
         return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(res);
     }
-
-    @Override
-    public ResponseEntity<?> listMobileUsers() {
-        
-        Boolean status = false;
-        String msg = "";
-        List<User> data = new ArrayList<>();
-
-        try {
-
-            data = userDao.findAll();
-
-            status = true;
-            msg = "List of mobile users.";
-            
-        } catch (Exception e) {
-            msg = e.getMessage();
-        }
-        
-        Response<List<User>> res = new Response<List<User>>(status, msg, data);
-
-        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(res);
-    }
-
+    
 }
