@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity<?> register(Login login) {
         Boolean status = false;
         String msg = "";
-        Map<String, String> data = new HashMap<String, String>();
+        Map<String, Object> data = new HashMap<String, Object>();
 
         try {
             String uuid = UUID.randomUUID().toString();
@@ -71,6 +71,7 @@ public class UserServiceImpl implements UserService {
             adminDao.save(admin);
 
             data.put("token", token);
+            data.put("user", admin);
 
             status = true;
             msg = "Your account has been created.";
@@ -89,7 +90,7 @@ public class UserServiceImpl implements UserService {
 
         Boolean status = false;
         String msg = "";
-        Map<String, String> data = new HashMap<String, String>();
+        Map<String, Object> data = new HashMap<String, Object>();
 
         try {
 
@@ -117,6 +118,7 @@ public class UserServiceImpl implements UserService {
             loginDao.save(user);
 
             data.put("token", token);
+            data.put("user", adminDao.findByUserid(user.getUserid()));
 
             status = true;
             msg = "Login success.";
