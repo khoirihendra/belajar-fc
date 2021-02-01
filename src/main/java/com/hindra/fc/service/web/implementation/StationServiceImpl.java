@@ -53,8 +53,6 @@ public class StationServiceImpl implements StationService {
     public ResponseEntity<?> addChargingStations(ChargingStation chargingStation, String token) {
         Boolean status = false;
         String msg = "";
-        
-        System.out.println("asd");
 
         try {
             String userid = jwtToken.getUserIdFromToken(token);

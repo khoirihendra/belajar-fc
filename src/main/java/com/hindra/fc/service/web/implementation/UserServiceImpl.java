@@ -50,12 +50,12 @@ public class UserServiceImpl implements UserService {
 
         try {
             String uuid = UUID.randomUUID().toString();
+            login.setUserid(uuid);
 
             // generate token
             String token = jwt.generateToken(login);
 
             // add credential
-            login.setUserid(uuid);
             login.setPassword(bCryptPasswordEncoder.encode(login.getPassword()));
             login.setToken(token);
             login.setCreatedat(new Date());

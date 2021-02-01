@@ -27,7 +27,6 @@ public class JwtTokenUtil implements Serializable {
 
 	//retrieve userid from jwt token
 	public String getUserIdFromToken(String token) {
-		System.out.println(token);
 		return getClaimFromToken(token, Claims::getSubject);
 	}
 
