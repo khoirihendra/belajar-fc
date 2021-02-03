@@ -39,16 +39,16 @@ public class UserServiceMobileImpl implements UserServiceMobile {
     public ResponseEntity<?> register(Login login) {
         Boolean status = false;
         String msg = "";
-        Map<String, String> data = new HashMap<String, String>();
+        Map<String, Object> data = new HashMap<String, Object>();
 
         try {
             String uuid = UUID.randomUUID().toString();
+            login.setUserid(uuid);
 
             // generate token
             String token = jwt.generateToken(login);
 
             // add credential
-            login.setUserid(uuid);
             login.setPassword(bCryptPasswordEncoder.encode(login.getPassword()));
             login.setToken(token);
             login.setCreatedat(new Date());
@@ -64,6 +64,7 @@ public class UserServiceMobileImpl implements UserServiceMobile {
             userDao.save(user);
 
             data.put("token", token);
+            data.put("user", user);
 
             status = true;
             msg = "Your account has been created.";
@@ -82,7 +83,7 @@ public class UserServiceMobileImpl implements UserServiceMobile {
 
         Boolean status = false;
         String msg = "";
-        Map<String, String> data = new HashMap<String, String>();
+        Map<String, Object> data = new HashMap<String, Object>();
 
         try {
 
@@ -110,6 +111,7 @@ public class UserServiceMobileImpl implements UserServiceMobile {
             loginDao.save(user);
 
             data.put("token", token);
+            data.put("user", userDao.findById(user.getUserid()));
 
             status = true;
             msg = "Login success.";
