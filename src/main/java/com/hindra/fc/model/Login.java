@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Entity
@@ -16,6 +17,7 @@ import lombok.Data;
 public class Login {
     
     @Id
+    @ApiModelProperty(hidden=true)
     @Column(name = "user_id")
     private String userid;
 
@@ -25,21 +27,27 @@ public class Login {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @ApiModelProperty(hidden=true)
     @Column(name = "token", nullable = false)
     private String token;
 
+    @ApiModelProperty(hidden=true)
     @Transient
     private String fullname;
 
+    @ApiModelProperty(hidden=true)
     @Column(name = "created_at")
     private Date createdat;
 
+    @ApiModelProperty(hidden=true)
     @Column(name = "created_by")
     private String createdby;
 
+    @ApiModelProperty(hidden=true)
     @Column(name = "updated_at")
     private Date updatedat;
 
+    @ApiModelProperty(hidden=true)
     @Column(name = "updated_by")
     private String updatedby;
 }

@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+
 
 @RestController
 @CrossOrigin
+@Api(tags = "API Mobile - Modul User")
 @RequestMapping("/mobile")
 public class UserMobileController {
 

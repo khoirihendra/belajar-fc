@@ -11,11 +11,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import io.swagger.annotations.Api;
+
 import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
 @CrossOrigin
+@Api(tags = "API Web - Modul User")
 @RequestMapping("/web")
 public class UserController {
 
