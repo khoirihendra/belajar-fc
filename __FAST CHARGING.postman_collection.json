@@ -1,0 +1,454 @@
+{
+	"info": {
+		"_postman_id": "61461a8f-c6da-4932-ac7f-967bef44e92b",
+		"name": "__FAST CHARGING",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "WEB",
+			"item": [
+				{
+					"name": "Login Admin",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/web/login-admin",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"web",
+								"login-admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Google Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenweb}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accessToken\" : \"ya29.a0AfH6SMDwIGGddi77MMYp8MPLWgIGik10nrbCOp_30r8fxEdStvkkxKsJwcOfl3cEtMRqMAAXn71yLiUPeb8JyXcVU1OUQBRy4vE9eCTq56WwyRlw2y_aWAHZ-8NLN2YcxtUN-odUL2l4QEYEdrVsAWtNo_Tg1Q\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/web/login-google-admin",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"web",
+								"login-google-admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Admin",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"admin12332\",\r\n    \"password\" : \"admin\",\r\n    \"fullname\" : \"Admin Testing\",\r\n    \"email\" : \"asd@a.coms\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/web/register-admin",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"web",
+								"register-admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile Admin",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenweb}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseurl}}/web/profile/{{userid}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"web",
+								"profile",
+								"{{userid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List User Umum",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenweb}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseurl}}/web/users",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"web",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Charging Station",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenweb}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseurl}}/web/charging-stations",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"web",
+								"charging-stations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Charging Station",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenweb}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stationcode\" : \"ST15\",\r\n    \"stationname\" : \"Station 15\",\r\n    \"plugtype\" : \"B\",\r\n    \"latitude\" : \"-7.310166\",\r\n    \"longitude\" : \"107.214554\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/web/charging-stations/add",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"web",
+								"charging-stations",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List All Transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenweb}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/web/transactions",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"web",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MOBILE",
+			"item": [
+				{
+					"name": "Login User Umum",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"user3\",\r\n    \"password\" : \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/mobile/login",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"mobile",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User Umum",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"user3\",\r\n    \"password\" : \"123456\",\r\n    \"fullname\" : \"User Mobile 3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/mobile/register",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"mobile",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile User Umum",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenmobile}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/mobile/profile",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"mobile",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Charging Station by Current Location",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenmobile}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/mobile/search?current_latitude={{latitude}}&current_longitude={{longitude}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"mobile",
+								"search"
+							],
+							"query": [
+								{
+									"key": "current_latitude",
+									"value": "{{latitude}}"
+								},
+								{
+									"key": "current_longitude",
+									"value": "{{longitude}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "My Transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenmobile}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/mobile/mytransactions",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"mobile",
+								"mytransactions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
