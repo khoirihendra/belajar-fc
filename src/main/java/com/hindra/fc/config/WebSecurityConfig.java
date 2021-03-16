@@ -51,7 +51,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		httpSecurity.cors().and().csrf().disable()
 				// dont authenticate this particular request
 				.authorizeRequests().antMatchers(
-					"/web/login-admin", "/web/register-admin","/mobile/login", "/mobile/register",
+					"/web/login-admin", "/web/login-google-admin", "/web/register-admin",
+					"/mobile/login", "/mobile/register",
 					"/swagger-ui.html",
 					"/v2/api-docs",			  // swagger
                     "/webjars/**",            // swagger-ui webjars

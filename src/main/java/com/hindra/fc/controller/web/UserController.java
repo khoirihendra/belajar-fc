@@ -1,9 +1,13 @@
 package com.hindra.fc.controller.web;
 
+import java.util.Map;
+
+import com.hindra.fc.dto.GoogleProfileDTO;
 import com.hindra.fc.model.Login;
 import com.hindra.fc.service.web.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +40,15 @@ public class UserController {
     public ResponseEntity<?> loginAdmin(@RequestBody Login login) {
         
         return userService.login(login);
+    }
+
+    @PostMapping(path = "/login-google-admin", produces = "application/json")
+    public ResponseEntity<?> loginGoogleAdmin(@RequestBody GoogleProfileDTO googleAccessToken) {
+
+        // Map<String, Object> params = new JacksonJsonParser().parseMap(param);
+		// String googleAccessToken = (String) params.get("accessToken");
+
+        return userService.loginGoogle(googleAccessToken);
     }
     
     @GetMapping(path = "/profile/{userid}", produces = "application/json")

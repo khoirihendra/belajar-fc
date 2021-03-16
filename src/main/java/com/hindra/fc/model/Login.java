@@ -27,6 +27,9 @@ public class Login {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "email")
+    private String email;
+
     @ApiModelProperty(hidden=true)
     @Column(name = "token", nullable = false)
     private String token;

@@ -7,13 +7,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hindra.fc.dao.AdminDao;
 import com.hindra.fc.dao.LoginDao;
 import com.hindra.fc.dao.UserDao;
+import com.hindra.fc.dto.GoogleProfileDTO;
 import com.hindra.fc.model.Admin;
 import com.hindra.fc.model.Login;
 import com.hindra.fc.model.User;
 import com.hindra.fc.service.web.UserService;
+import com.hindra.fc.util.GoogleHelper;
 import com.hindra.fc.util.JwtTokenUtil;
 import com.hindra.fc.util.Response;
 
@@ -123,6 +126,61 @@ public class UserServiceImpl implements UserService {
             status = true;
             msg = "Login success.";
 
+        } catch (Exception e) {
+            msg = e.getMessage();
+        }
+
+        Response<Map<?, ?>> res = new Response<Map<?, ?>>(status, msg, data);
+
+        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(res);
+    }
+
+    @Override
+    public ResponseEntity<?> loginGoogle(GoogleProfileDTO googleAccessToken) {
+        Boolean status = false;
+        String msg = "";
+        Map<String, Object> data = new HashMap<String, Object>();
+
+        try {
+            //validate google access token and get google profile
+            String googleProfileJson = GoogleHelper.getUserInfo(googleAccessToken.getGoogleAccessTOken());
+
+            if(googleProfileJson == null || googleProfileJson == "") {
+                throw new Exception("Invalid access token");
+            } 
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            GoogleProfileDTO googleProfile = objectMapper.readValue(googleProfileJson, GoogleProfileDTO.class);
+
+            String email = googleProfile.getEmail();
+
+            // check whether user exists
+            Login user = loginDao.findByEmail(email);
+
+            if (user == null) {
+                status = true;
+                msg = "Go to registration page.";
+
+                data.put("user", new User());
+            }
+            else {
+                // generate token
+                String token = jwt.generateToken(user);
+
+                // update last login
+                user.setToken(token);
+                user.setUpdatedat(new Date());
+                user.setUpdatedby(user.getUserid());
+                loginDao.save(user);
+
+                data.put("token", token);
+                data.put("user", adminDao.findByUserid(user.getUserid()));
+
+                status = true;
+                msg = "Login success.";
+            }
+
+            
         } catch (Exception e) {
             msg = e.getMessage();
         }
